@@ -34,7 +34,8 @@ type Data struct {
 
 type StoredData struct {
 	Data
-	Generation uint32 `json:"generation"`
+	Generation   uint32 `json:"generation"`
+	DiscardValue bool   `json:"-"`
 }
 
 type ComputeResponse struct {
