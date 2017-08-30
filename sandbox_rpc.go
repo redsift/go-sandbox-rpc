@@ -1,3 +1,10 @@
+//
+//  sandbox_rpc.go
+//  Sandbox RPC model
+//
+//  Copyright (c) 2017 RedSift Limited. All rights reserved.
+//
+//
 package sandboxrpc
 
 // ComputeRequest contains the parameters to invoke the node implementation function.

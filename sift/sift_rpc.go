@@ -1,3 +1,12 @@
+//
+//  sift_rpc.go
+//  Sift model
+//
+//  Created by Christos Vontas on 30/08/2017.
+//  Copyright (c) 2017 RedSift Limited. All rights reserved.
+//
+//
+
 package sift
 
 type Root struct {
