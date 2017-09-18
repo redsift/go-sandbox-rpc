@@ -46,15 +46,21 @@ type StoredData struct {
 	Gather       bool   `json:"-"`
 }
 
-//type ComputeResponse struct {
-//	StoredData
-//	Name string `json:"name"`
-//}
-
 type ComputeResponse struct {
-	Name       string `json:"name"`
-	Key        string `json:"key"`
-	Value      []byte `json:"value"`
-	Epoch      int64  `json:"epoch"`
-	Generation uint32 `json:"generation"`
+	StoredData
+	Name string `json:"name"`
+}
+
+func NewComputeResponse(n string, k string, v []byte, e int64, g uint32) ComputeResponse {
+	return ComputeResponse{
+		Name: n,
+		StoredData: StoredData{
+			Generation: g,
+			Data: Data{
+				Key:   k,
+				Value: v,
+				Epoch: e,
+			},
+		},
+	}
 }
