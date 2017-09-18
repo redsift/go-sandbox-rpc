@@ -17,7 +17,7 @@ type ComputeRequest struct {
 
 // Response is returned by the sandbox.
 type Response struct {
-	Out   []ComputeResponse `json:"out,omitempty"`
+	Out   []*ComputeResponse `json:"out,omitempty"`
 	Error interface{}        `json:"error,omitempty"`
 	Stats interface{}        `json:"stats,omitempty"` // timings and resource usage to be booked against this sift TODO: nail down
 }
