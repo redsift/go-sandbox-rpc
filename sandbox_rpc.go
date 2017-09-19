@@ -13,6 +13,7 @@ type ComputeRequest struct {
 	Aggregation []string            `json:"query,omitempty"`
 	With        *StoredDataQuantum  `json:"with,omitempty"`
 	Lookup      []LookupDataQuantum `json:"lookup,omitempty"`
+	Get         []GetDataQuantum    `json:"get,omitempty"`
 }
 
 // Response is returned by the sandbox.
@@ -25,6 +26,12 @@ type Response struct {
 // A single unit of operation
 type StoredDataQuantum struct {
 	Bucket string        `json:"bucket"`
+	Data   []*StoredData `json:"data"`
+}
+
+type GetDataQuantum struct {
+	Bucket string        `json:"bucket"`
+	Key    string        `json:"key"`
 	Data   []*StoredData `json:"data"`
 }
 
