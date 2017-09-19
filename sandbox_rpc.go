@@ -51,15 +51,15 @@ type ComputeResponse struct {
 	Name string `json:"name"`
 }
 
-func NewComputeResponse(n string, k string, v []byte, e int64, g uint32) ComputeResponse {
+func NewComputeResponse(name string, key string, value []byte, epoch int64, generation uint32) ComputeResponse {
 	return ComputeResponse{
-		Name: n,
+		Name: name,
 		StoredData: StoredData{
-			Generation: g,
+			Generation: generation,
 			Data: Data{
-				Key:   k,
-				Value: v,
-				Epoch: e,
+				Key:   key,
+				Value: value,
+				Epoch: epoch,
 			},
 		},
 	}
