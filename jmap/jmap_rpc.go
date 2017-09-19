@@ -74,9 +74,7 @@ func (e *Emailer) String() string {
 	return fmt.Sprintf(`%q <%s>`, e.Name, e.Email)
 }
 
-// TODO: New jmap spec has the following 2 fields instead of id and url.
-// blobId: String The id of the binary data.
-// cid: String|null The id used within the message body to reference this attachment. This is only unique when paired with the message id, and has no meaning without reference to that.
+// Attachment
 type Attachment struct {
 	BlobID   string `json:"blobId"`
 	Type     string `json:"type"`
