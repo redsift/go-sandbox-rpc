@@ -17,23 +17,23 @@ import (
 
 // Message is the structure of a JMAP message.
 type Message struct {
-	ID                 string              `json:"id"`
-	ThreadID           string              `json:"threadId"`
-	MailboxIDs         []string            `json:"mailboxIds"`
+	ID                 string              `json:"id,omitempty"`
+	ThreadID           string              `json:"threadId,omitempty"`
+	MailboxIDs         []string            `json:"mailboxIds,omitempty"`
 	InReplyToMessageID string              `json:"inReplyToMessageId,omitempty"` // Can be null
 	IsUnread           bool                `json:"isUnread"`                     // Mutable
 	IsFlagged          bool                `json:"isFlagged"`                    // Mutable
 	IsAnswered         bool                `json:"isAnswered"`                   // Mutable
 	IsDraft            bool                `json:"isDraft"`                      // Mutable by the server
 	HasAttachment      bool                `json:"hasAttachment"`
-	Headers            map[string]string   `json:"headers"`
+	Headers            map[string]string   `json:"headers,omitempty"`
 	From               *Emailer            `json:"from,omitempty"`    // Can be null
 	To                 []*Emailer          `json:"to,omitempty"`      // Can be null
 	Cc                 []*Emailer          `json:"cc,omitempty"`      // Can be null
 	Bcc                []*Emailer          `json:"bcc,omitempty"`     // Can be null
 	ReplyTo            *Emailer            `json:"replyTo,omitempty"` // Can be null
-	Subject            string              `json:"subject"`
-	Date               string              `json:"date"`
+	Subject            string              `json:"subject,omitempty"`
+	Date               string              `json:"date,omitempty"`
 	Size               uint32              `json:"size"`
 	Preview            string              `json:"preview,omitempty"`
 	TextBody           string              `json:"textBody,omitempty"`         // Can be null
