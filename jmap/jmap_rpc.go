@@ -21,11 +21,11 @@ type Message struct {
 	ThreadID           string              `json:"threadId,omitempty"`
 	MailboxIDs         []string            `json:"mailboxIds,omitempty"`
 	InReplyToMessageID string              `json:"inReplyToMessageId,omitempty"` // Can be null
-	IsUnread           bool                `json:"isUnread"`                     // Mutable
-	IsFlagged          bool                `json:"isFlagged"`                    // Mutable
-	IsAnswered         bool                `json:"isAnswered"`                   // Mutable
-	IsDraft            bool                `json:"isDraft"`                      // Mutable by the server
-	HasAttachment      bool                `json:"hasAttachment"`
+	IsUnread           *bool               `json:"isUnread,omitempty"`           // Mutable
+	IsFlagged          *bool               `json:"isFlagged,omitempty"`          // Mutable
+	IsAnswered         *bool               `json:"isAnswered,omitempty"`         // Mutable
+	IsDraft            *bool               `json:"isDraft,omitempty"`            // Mutable by the server
+	HasAttachment      *bool               `json:"hasAttachment,omitempty"`
 	Headers            map[string]string   `json:"headers,omitempty"`
 	From               *Emailer            `json:"from,omitempty"`    // Can be null
 	To                 []*Emailer          `json:"to,omitempty"`      // Can be null
