@@ -42,6 +42,7 @@ type Message struct {
 	Attachments        []*Attachment       `json:"attachments,omitempty"`      // Can be null
 	AttachedMessages   map[string]*Message `json:"attachedMessages,omitempty"` // Can be null
 	User               string              `json:"user,omitempty"`
+	ExtSecReport       *ExtSecReport       `json:"extsecrep,omitempty"` // Can be null
 }
 
 func (msg *Message) String() string {
