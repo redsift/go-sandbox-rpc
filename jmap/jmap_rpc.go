@@ -43,6 +43,7 @@ type Message struct {
 	AttachedMessages   map[string]*Message `json:"attachedMessages,omitempty"` // Can be null
 	User               string              `json:"user,omitempty"`
 	ExtSecReport       *ExtSecReport       `json:"extsecrep,omitempty"` // Can be null
+	ToB                int64               `json:"tob,omitempty"`       // time of birth (used to measure latency)
 }
 
 func (msg *Message) String() string {
