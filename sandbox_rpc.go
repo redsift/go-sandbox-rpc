@@ -9,11 +9,10 @@ package sandboxrpc
 
 // ComputeRequest contains the parameters to invoke the node implementation function.
 type ComputeRequest struct {
-	In     *StoredDataQuantum  `json:"in"`
-	Query  []string            `json:"query,omitempty"`
-	With   *StoredDataQuantum  `json:"with,omitempty"`
-	Lookup []LookupDataQuantum `json:"lookup,omitempty"`
-	Get    []GetDataQuantum    `json:"get,omitempty"`
+	In    *StoredDataQuantum `json:"in"`
+	Query []string           `json:"query,omitempty"`
+	With  *StoredDataQuantum `json:"with,omitempty"`
+	Get   []GetDataQuantum   `json:"get,omitempty"`
 }
 
 // Response is returned by the sandbox.
@@ -33,11 +32,6 @@ type GetDataQuantum struct {
 	Bucket string        `json:"bucket"`
 	Key    string        `json:"key"`
 	Data   []*StoredData `json:"data"`
-}
-
-type LookupDataQuantum struct {
-	Bucket string      `json:"bucket"`
-	Data   *StoredData `json:"data"`
 }
 
 type Data struct {
