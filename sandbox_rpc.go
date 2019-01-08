@@ -7,6 +7,10 @@
 //
 package sandboxrpc
 
+type DataQuantum interface {
+	Stored() []*StoredData
+}
+
 // ComputeRequest contains the parameters to invoke the node implementation function.
 type ComputeRequest struct {
 	In    *StoredDataQuantum `json:"in"`
@@ -32,6 +36,14 @@ type GetDataQuantum struct {
 	Bucket string        `json:"bucket"`
 	Key    string        `json:"key"`
 	Data   []*StoredData `json:"data"`
+}
+
+func (d *GetDataQuantum) Stored() []*StoredData {
+	return d.Data
+}
+
+func (d *StoredDataQuantum) Stored() []*StoredData {
+	return d.Data
 }
 
 type Data struct {
