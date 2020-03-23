@@ -55,6 +55,7 @@ type Data struct {
 type StoredData struct {
 	Data
 	Generation   uint32 `json:"generation"`
+	TTL          uint32 `json:"ttl"`
 	DiscardValue bool   `json:"-"`
 	Gather       bool   `json:"-"`
 }
@@ -69,6 +70,21 @@ func NewComputeResponse(name string, key string, value []byte, epoch int64, gene
 		Name: name,
 		StoredData: StoredData{
 			Generation: generation,
+			Data: Data{
+				Key:   key,
+				Value: value,
+				Epoch: epoch,
+			},
+		},
+	}
+}
+
+func NewComputeResponseWithTTL(name string, key string, value []byte, epoch int64, generation, ttl uint32) ComputeResponse {
+	return ComputeResponse{
+		Name: name,
+		StoredData: StoredData{
+			Generation: generation,
+			TTL:        ttl,
 			Data: Data{
 				Key:   key,
 				Value: value,
