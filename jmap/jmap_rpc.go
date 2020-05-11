@@ -16,7 +16,7 @@ import (
 )
 
 type Meta struct {
-	RequestID string `json:"requestID,omitempty"`
+	RequestID string `json:"requestId,omitempty"`
 	ToB       int64  `json:"tob,omitempty"` // time of birth (used to measure latency)
 	ToR       int64  `json:"tor,omitempty"` // time of request (used to measure latency)
 }
