@@ -15,6 +15,12 @@ import (
 	"strings"
 )
 
+type Meta struct {
+	RequestID string `json:"requestID,omitempty"`
+	ToB       int64  `json:"tob,omitempty"` // time of birth (used to measure latency)
+	ToR       int64  `json:"tor,omitempty"` // time of request (used to measure latency)
+}
+
 // Message is the structure of a JMAP message.
 type Message struct {
 	ID                 string              `json:"id,omitempty"`
@@ -44,6 +50,7 @@ type Message struct {
 	User               string              `json:"user,omitempty"`
 	ExtSecReport       *ExtSecReport       `json:"extsecrep,omitempty"` // Can be null
 	ToB                int64               `json:"tob,omitempty"`       // time of birth (used to measure latency)
+	Meta               Meta                `json:"meta,omitempty"`
 }
 
 func (msg *Message) String() string {
