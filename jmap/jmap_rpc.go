@@ -15,10 +15,19 @@ import (
 	"strings"
 )
 
+type SourceModel int64
+
+const (
+	SourceUnknown SourceModel = iota
+	SourcePull
+	SourcePush
+)
+
 type Meta struct {
-	RequestID string `json:"requestId,omitempty"`
-	ToB       int64  `json:"tob,omitempty"` // time of birth (used to measure latency)
-	ToR       int64  `json:"tor,omitempty"` // time of request (used to measure latency)
+	RequestID string      `json:"requestId,omitempty"`
+	ToB       int64       `json:"tob,omitempty"`    // time of birth (used to measure latency)
+	ToR       int64       `json:"tor,omitempty"`    // time of request (used to measure latency)
+	Source    SourceModel `json:"source,omitempty"` // message source
 }
 
 // Message is the structure of a JMAP message.
@@ -54,7 +63,8 @@ type Message struct {
 }
 
 func (msg *Message) String() string {
-	return fmt.Sprintf("%s", map[string]interface{}{"id": msg.ID, "subject": msg.Subject, "from": msg.From,
+	return fmt.Sprintf("%s", map[string]interface{}{
+		"id": msg.ID, "subject": msg.Subject, "from": msg.From,
 		"to": msg.To, "cc": msg.Cc, "date": msg.Date, "textBody": msg.TextBody, "htmlBody": msg.HTMLBody,
 	})
 }
