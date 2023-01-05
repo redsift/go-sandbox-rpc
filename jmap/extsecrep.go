@@ -8,4 +8,5 @@ type ExtSecReport struct {
 	SPF   json.RawMessage `json:"spf,omitempty"`
 	DKIM  json.RawMessage `json:"dkim,omitempty"`
 	DMARC json.RawMessage `json:"dmarc,omitempty"`
+	ARC   json.RawMessage `json:"arc,omitempty"`
 }
