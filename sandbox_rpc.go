@@ -1,10 +1,4 @@
-//
-//  sandbox_rpc.go
-//  Sandbox RPC model
-//
-//  Copyright (c) 2017 RedSift Limited. All rights reserved.
-//
-//
+// Copyright (c) 2023 RedSift Limited. All rights reserved.
 package sandboxrpc
 
 type DataQuantum interface {
@@ -13,29 +7,29 @@ type DataQuantum interface {
 
 // ComputeRequest contains the parameters to invoke the node implementation function.
 type ComputeRequest struct {
-	In    *StoredDataQuantum `json:"in"`
-	Query []string           `json:"query,omitempty"`
-	With  *StoredDataQuantum `json:"with,omitempty"`
-	Get   []GetDataQuantum   `json:"get,omitempty"`
+	In    *StoredDataQuantum `json:"in" msgpack:"in"`
+	Query []string           `json:"query,omitempty" msgpack:"query"`
+	With  *StoredDataQuantum `json:"with,omitempty" msgpack:"with"`
+	Get   []GetDataQuantum   `json:"get,omitempty" msgpack:"get"`
 }
 
 // Response is returned by the sandbox.
 type Response struct {
-	Out   []*ComputeResponse `json:"out,omitempty"`
-	Error interface{}        `json:"error,omitempty"`
-	Stats interface{}        `json:"stats,omitempty"` // timings and resource usage to be booked against this sift TODO: nail down
+	Out   []*ComputeResponse `json:"out,omitempty" msgpack:"out"`
+	Error interface{}        `json:"error,omitempty" msgpack:"error"`
+	Stats interface{}        `json:"stats,omitempty" msgpack:"stats"` // timings and resource usage to be booked against this sift TODO: nail down
 }
 
 // A single unit of operation
 type StoredDataQuantum struct {
-	Bucket string        `json:"bucket"`
-	Data   []*StoredData `json:"data"`
+	Bucket string        `json:"bucket" msgpack:"bucket"`
+	Data   []*StoredData `json:"data" msgpack:"data"`
 }
 
 type GetDataQuantum struct {
-	Bucket string        `json:"bucket"`
-	Key    string        `json:"key"`
-	Data   []*StoredData `json:"data"`
+	Bucket string        `json:"bucket" msgpack:"bucket"`
+	Key    string        `json:"key" msgpack:"key"`
+	Data   []*StoredData `json:"data" msgpack:"data"`
 }
 
 func (d *GetDataQuantum) Stored() []*StoredData {
@@ -47,22 +41,22 @@ func (d *StoredDataQuantum) Stored() []*StoredData {
 }
 
 type Data struct {
-	Key   string `json:"key"`
-	Value []byte `json:"value"`
-	Epoch int64  `json:"epoch"`
+	Key   string `json:"key" msgpack:"key"`
+	Value []byte `json:"value" msgpack:"value"`
+	Epoch int64  `json:"epoch" msgpack:"epoch"`
 }
 
 type StoredData struct {
 	Data
-	Generation   uint32 `json:"generation"`
-	TTL          uint32 `json:"ttl"`
+	Generation   uint32 `json:"generation" msgpack:"generation"`
+	TTL          uint32 `json:"ttl" msgpack:"ttl"`
 	DiscardValue bool   `json:"-"`
 	Gather       bool   `json:"-"`
 }
 
 type ComputeResponse struct {
 	StoredData
-	Name string `json:"name"`
+	Name string `json:"name" msgpack:"name"`
 }
 
 func NewComputeResponse(name string, key string, value []byte, epoch int64, generation uint32) ComputeResponse {
