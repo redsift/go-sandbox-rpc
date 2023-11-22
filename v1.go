@@ -14,9 +14,9 @@ type ComputeRequestV1 struct {
 
 // ResponseV1 is returned by the sandbox.
 type ResponseV1 struct {
-	Out   []*ComputeResponse `json:"out,omitempty"`
-	Error interface{}        `json:"error,omitempty"`
-	Stats interface{}        `json:"stats,omitempty"` // timings and resource usage to be booked against this sift TODO: nail down
+	Out   []*ComputeResponseV1 `json:"out,omitempty"`
+	Error interface{}          `json:"error,omitempty"`
+	Stats interface{}          `json:"stats,omitempty"` // timings and resource usage to be booked against this sift TODO: nail down
 }
 
 // A single unit of operation
@@ -40,13 +40,13 @@ type StoredData struct {
 	Gather       bool   `json:"-"`
 }
 
-type ComputeResponse struct {
+type ComputeResponseV1 struct {
 	StoredData
 	Name string `json:"name"`
 }
 
-func NewComputeResponse(name string, key string, value []byte, epoch int64, generation uint32) ComputeResponse {
-	return ComputeResponse{
+func NewComputeResponse(name string, key string, value []byte, epoch int64, generation uint32) ComputeResponseV1 {
+	return ComputeResponseV1{
 		Name: name,
 		StoredData: StoredData{
 			Generation: generation,
@@ -59,8 +59,8 @@ func NewComputeResponse(name string, key string, value []byte, epoch int64, gene
 	}
 }
 
-func NewComputeResponseWithTTL(name string, key string, value []byte, epoch int64, generation, ttl uint32) ComputeResponse {
-	return ComputeResponse{
+func NewComputeResponseWithTTL(name string, key string, value []byte, epoch int64, generation, ttl uint32) ComputeResponseV1 {
+	return ComputeResponseV1{
 		Name: name,
 		StoredData: StoredData{
 			Generation: generation,
