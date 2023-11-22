@@ -35,7 +35,7 @@ func (i *Item) UnmarshalJSON(data []byte) error {
 			if !ok {
 				return fmt.Errorf("no decoder for %q", k)
 			}
-			payload, err := decoder(temp[k])
+			payload, err := decoder.decodeJSON(temp[k])
 			if err != nil {
 				return err
 			}
