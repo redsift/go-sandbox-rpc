@@ -1,26 +1,19 @@
+// sandbox_rpc.go
+// Sandbox RPC model
 //
-//  sandbox_rpc.go
-//  Sandbox RPC model
-//
-//  Copyright (c) 2017 RedSift Limited. All rights reserved.
-//
-//
+// Copyright (c) 2017 RedSift Limited. All rights reserved.
 package sandboxrpc
 
-type DataQuantum interface {
-	Stored() []*StoredData
+// ComputeRequestV1 contains the parameters to invoke the node implementation function.
+type ComputeRequestV1 struct {
+	In    *StoredDataQuantum   `json:"in"`
+	Query []string             `json:"query,omitempty"`
+	With  *StoredDataQuantum   `json:"with,omitempty"`
+	Get   []*StoredDataQuantum `json:"get,omitempty"`
 }
 
-// ComputeRequest contains the parameters to invoke the node implementation function.
-type ComputeRequest struct {
-	In    *StoredDataQuantum `json:"in"`
-	Query []string           `json:"query,omitempty"`
-	With  *StoredDataQuantum `json:"with,omitempty"`
-	Get   []GetDataQuantum   `json:"get,omitempty"`
-}
-
-// Response is returned by the sandbox.
-type Response struct {
+// ResponseV1 is returned by the sandbox.
+type ResponseV1 struct {
 	Out   []*ComputeResponse `json:"out,omitempty"`
 	Error interface{}        `json:"error,omitempty"`
 	Stats interface{}        `json:"stats,omitempty"` // timings and resource usage to be booked against this sift TODO: nail down
@@ -29,21 +22,8 @@ type Response struct {
 // A single unit of operation
 type StoredDataQuantum struct {
 	Bucket string        `json:"bucket"`
+	Key    string        `json:"key,omitempty"`
 	Data   []*StoredData `json:"data"`
-}
-
-type GetDataQuantum struct {
-	Bucket string        `json:"bucket"`
-	Key    string        `json:"key"`
-	Data   []*StoredData `json:"data"`
-}
-
-func (d *GetDataQuantum) Stored() []*StoredData {
-	return d.Data
-}
-
-func (d *StoredDataQuantum) Stored() []*StoredData {
-	return d.Data
 }
 
 type Data struct {
