@@ -9,6 +9,7 @@ import legacy "github.com/redsift/go-sandbox-rpc"
 type ComputeRequestV1 = legacy.ComputeRequest
 type ResponseV1 = legacy.Response
 type StoredDataQuantum = legacy.StoredDataQuantum
+type GetDataQuantum = legacy.GetDataQuantum
 type Data = legacy.Data
 type StoredData = legacy.StoredData
 type ComputeResponseV1 = legacy.ComputeResponse
