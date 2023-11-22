@@ -1,3 +1,3 @@
 module github.com/redsift/go-sandbox-rpc
 
-go 1.16
+go 1.21
