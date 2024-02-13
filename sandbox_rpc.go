@@ -7,6 +7,8 @@
 //
 package sandboxrpc
 
+import "time"
+
 type DataQuantum interface {
 	Stored() []*StoredData
 }
@@ -17,6 +19,17 @@ type ComputeRequest struct {
 	Query []string           `json:"query,omitempty"`
 	With  *StoredDataQuantum `json:"with,omitempty"`
 	Get   []GetDataQuantum   `json:"get,omitempty"`
+	// experimental API, do not rely on presence or contents
+	Meta *ComputeMeta `json:"meta,omitempty"`
+}
+
+type ComputeMeta struct {
+	// currently contains a dagger-internal cascade ID, format subject to potential changes
+	ID string `json:"compute_id,omitempty"`
+	// start of the cascade
+	Start time.Time `json:"start"`
+	// deadline for the cascade
+	Deadline time.Time `json:"deadline"`
 }
 
 // Response is returned by the sandbox.
@@ -28,14 +41,22 @@ type Response struct {
 
 // A single unit of operation
 type StoredDataQuantum struct {
-	Bucket string        `json:"bucket"`
-	Data   []*StoredData `json:"data"`
+	Bucket    string        `json:"bucket"`
+	Data      []*StoredData `json:"data"`
+	Batch     *Batch        `json:"batch,omitempty"`
+	QueryTime float64       `json:"query_time,omitempty"`
+}
+
+type Batch struct {
+	Current int `json:"current,omitempty"`
+	Total   int `json:"total,omitempty"`
 }
 
 type GetDataQuantum struct {
-	Bucket string        `json:"bucket"`
-	Key    string        `json:"key"`
-	Data   []*StoredData `json:"data"`
+	Bucket    string        `json:"bucket"`
+	Key       string        `json:"key"`
+	Data      []*StoredData `json:"data"`
+	QueryTime float64       `json:"query_time,omitempty"`
 }
 
 func (d *GetDataQuantum) Stored() []*StoredData {
