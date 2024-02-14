@@ -41,22 +41,38 @@ type Response struct {
 
 // A single unit of operation
 type StoredDataQuantum struct {
-	Bucket    string        `json:"bucket"`
-	Data      []*StoredData `json:"data"`
-	Batch     *Batch        `json:"batch,omitempty"`
-	QueryTime float64       `json:"query_time,omitempty"`
+	Bucket string        `json:"bucket"`
+	Data   []*StoredData `json:"data"`
+	Meta   *QuantumMeta  `json:"meta,omitempty"`
 }
 
+// QueryMeta encapsulates database query related metadata
+type QueryMeta struct {
+	// query execution time
+	QueryTime float64 `json:"query_time,omitempty"`
+}
+
+// QuantumMeta encapsulates all data quantum related metadata
+type QuantumMeta struct {
+	Batch *Batch `json:"batch,omitempty"`
+	QueryMeta
+}
+
+// Batch provides meta information about the progress of a batching input
 type Batch struct {
 	Current int `json:"current,omitempty"`
 	Total   int `json:"total,omitempty"`
 }
 
 type GetDataQuantum struct {
-	Bucket    string        `json:"bucket"`
-	Key       string        `json:"key"`
-	Data      []*StoredData `json:"data"`
-	QueryTime float64       `json:"query_time,omitempty"`
+	Bucket string          `json:"bucket"`
+	Key    string          `json:"key"`
+	Data   []*StoredData   `json:"data"`
+	Meta   *GetQuantumMeta `json:"meta,omitempty"`
+}
+
+type GetQuantumMeta struct {
+	QueryMeta
 }
 
 func (d *GetDataQuantum) Stored() []*StoredData {
