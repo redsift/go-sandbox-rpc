@@ -7,6 +7,8 @@
 //
 package sandboxrpc
 
+import "time"
+
 type DataQuantum interface {
 	Stored() []*StoredData
 }
@@ -17,6 +19,17 @@ type ComputeRequest struct {
 	Query []string           `json:"query,omitempty"`
 	With  *StoredDataQuantum `json:"with,omitempty"`
 	Get   []GetDataQuantum   `json:"get,omitempty"`
+	// experimental API, do not rely on presence or contents
+	Meta *ComputeMeta `json:"meta,omitempty"`
+}
+
+type ComputeMeta struct {
+	// currently contains a dagger-internal cascade ID, format subject to potential changes
+	ID string `json:"compute_id,omitempty"`
+	// start of the cascade
+	Start time.Time `json:"start"`
+	// deadline for the cascade
+	Deadline time.Time `json:"deadline"`
 }
 
 // Response is returned by the sandbox.
@@ -30,12 +43,36 @@ type Response struct {
 type StoredDataQuantum struct {
 	Bucket string        `json:"bucket"`
 	Data   []*StoredData `json:"data"`
+	Meta   *QuantumMeta  `json:"meta,omitempty"`
+}
+
+// QueryMeta encapsulates database query related metadata
+type QueryMeta struct {
+	// query execution time
+	QueryTime float64 `json:"query_time,omitempty"`
+}
+
+// QuantumMeta encapsulates all data quantum related metadata
+type QuantumMeta struct {
+	Batch *Batch `json:"batch,omitempty"`
+	QueryMeta
+}
+
+// Batch provides meta information about the progress of a batching input
+type Batch struct {
+	Current int `json:"current,omitempty"`
+	Total   int `json:"total,omitempty"`
 }
 
 type GetDataQuantum struct {
-	Bucket string        `json:"bucket"`
-	Key    string        `json:"key"`
-	Data   []*StoredData `json:"data"`
+	Bucket string          `json:"bucket"`
+	Key    string          `json:"key"`
+	Data   []*StoredData   `json:"data"`
+	Meta   *GetQuantumMeta `json:"meta,omitempty"`
+}
+
+type GetQuantumMeta struct {
+	QueryMeta
 }
 
 func (d *GetDataQuantum) Stored() []*StoredData {
