@@ -24,10 +24,11 @@ const (
 )
 
 type Meta struct {
-	RequestID string      `json:"requestId,omitempty"`
-	ToB       int64       `json:"tob,omitempty"`    // time of birth (used to measure latency)
-	ToR       int64       `json:"tor,omitempty"`    // time of request (used to measure latency)
-	Source    SourceModel `json:"source,omitempty"` // message source
+	RequestID    string      `json:"requestId,omitempty"`
+	ToB          int64       `json:"tob,omitempty"`          // time of birth (used to measure latency)
+	ToR          int64       `json:"tor,omitempty"`          // time of request (used to measure latency)
+	Source       SourceModel `json:"source,omitempty"`       // message source
+	StorageClass string      `json:"storageClass,omitempty"` // Optional
 }
 
 // Message is the structure of a JMAP message.
