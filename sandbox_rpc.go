@@ -48,6 +48,9 @@ type StoredDataQuantum struct {
 
 // QueryMeta encapsulates database query related metadata
 type QueryMeta struct {
+	// number of queries
+	Queries int `json:"queries,omitempty"`
+
 	// query execution time
 	QueryTime float64 `json:"query_time,omitempty"`
 }
@@ -55,6 +58,7 @@ type QueryMeta struct {
 // QuantumMeta encapsulates all data quantum related metadata
 type QuantumMeta struct {
 	Batch *Batch `json:"batch,omitempty"`
+	Group *Batch `json:"group,omitempty"`
 	QueryMeta
 }
 
@@ -85,14 +89,14 @@ func (d *StoredDataQuantum) Stored() []*StoredData {
 
 type Data struct {
 	Key   string `json:"key"`
-	Value []byte `json:"value"`
-	Epoch int64  `json:"epoch"`
+	Value []byte `json:"value,omitempty"`
+	Epoch int64  `json:"epoch,omitempty"`
 }
 
 type StoredData struct {
 	Data
-	Generation   uint32 `json:"generation"`
-	TTL          uint32 `json:"ttl"`
+	Generation   uint32 `json:"generation,omitempty"`
+	TTL          uint32 `json:"ttl,omitempty"`
 	DiscardValue bool   `json:"-"`
 	Gather       bool   `json:"-"`
 }
