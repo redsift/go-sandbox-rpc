@@ -97,6 +97,11 @@ type StoredData struct {
 	Gather       bool   `json:"-"`
 }
 
+func (s *StoredData) Clone() *StoredData {
+	v := *s
+	return &v
+}
+
 type ComputeResponse struct {
 	StoredData
 	Name string `json:"name"`
