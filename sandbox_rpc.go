@@ -15,10 +15,9 @@ type DataQuantum interface {
 
 // ComputeRequest contains the parameters to invoke the node implementation function.
 type ComputeRequest struct {
-	In    *StoredDataQuantum `json:"in"`
-	Query []string           `json:"query,omitempty"`
-	With  *StoredDataQuantum `json:"with,omitempty"`
-	Get   []GetDataQuantum   `json:"get,omitempty"`
+	In    StoredDataQuantum     `json:"in"`
+	Query []string              `json:"query,omitempty"`
+	Get   Slice[GetDataQuantum] `json:"get,omitempty"`
 	// experimental API, do not rely on presence or contents
 	Meta *ComputeMeta `json:"meta,omitempty"`
 }
@@ -35,15 +34,15 @@ type ComputeMeta struct {
 // Response is returned by the sandbox.
 type Response struct {
 	Out   []*ComputeResponse `json:"out,omitempty"`
-	Error interface{}        `json:"error,omitempty"`
-	Stats interface{}        `json:"stats,omitempty"` // timings and resource usage to be booked against this sift TODO: nail down
+	Error any                `json:"error,omitempty"`
+	Stats any                `json:"stats,omitempty"` // timings and resource usage to be booked against this sift TODO: nail down
 }
 
 // A single unit of operation
 type StoredDataQuantum struct {
-	Bucket string        `json:"bucket"`
-	Data   []*StoredData `json:"data"`
-	Meta   *QuantumMeta  `json:"meta,omitempty"`
+	Bucket string             `json:"bucket"`
+	Data   Slice[*StoredData] `json:"data"`
+	Meta   *QuantumMeta       `json:"meta,omitempty"`
 }
 
 // QueryMeta encapsulates database query related metadata
@@ -69,10 +68,10 @@ type Batch struct {
 }
 
 type GetDataQuantum struct {
-	Bucket string          `json:"bucket"`
-	Key    string          `json:"key"`
-	Data   []*StoredData   `json:"data"`
-	Meta   *GetQuantumMeta `json:"meta,omitempty"`
+	Bucket string             `json:"bucket"`
+	Key    string             `json:"key"`
+	Data   Slice[*StoredData] `json:"data"`
+	Meta   *GetQuantumMeta    `json:"meta,omitempty"`
 }
 
 type GetQuantumMeta struct {
